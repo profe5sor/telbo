@@ -1,0 +1,27 @@
+name: Build and Run Rohan
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Install PyPy and Dependencies
+        run: |
+          sudo apt update
+          sudo apt install pypy3 g++
+          pypy3 -m ensurepip
+          pypy3 -m pip install --upgrade pip
+          pypy3 -m pip install telebot
+
+      - name: Compile C Program
+        run: g++ Rohan.c -o Rohan -pthread
+
+      - name: Run Executables
+        run: |
+          chmod +x Rohan || true
+          ./Rohan
+          pypy3 Rohan.py
