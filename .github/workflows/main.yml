@@ -1,27 +1,29 @@
 name: Build and Run Rohan
 
-on: [push]
+on: [push]  # Runs on every push to the repository
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3  # Pulls your repository code
       
-      - name: Install PyPy and Dependencies
+      - name: 🔧 Install dependencies
         run: |
           sudo apt update
-          sudo apt install pypy3 g++
-          pypy3 -m ensurepip
-          pypy3 -m pip install --upgrade pip
-          pypy3 -m pip install telebot
+          sudo apt install -y g++ python3 python3-pip
+          python3 -m ensurepip
+          python3 -m pip install --upgrade pip
+          python3 -m pip install telebot
 
-      - name: Compile C Program
-        run: g++ Rohan.c -o Rohan -pthread
-
-      - name: Run Executables
+      - name: 🚀 Compile C Program
         run: |
-          chmod +x Rohan || true
-          ./Rohan
-          pypy3 Rohan.py
+          g++ Rohan.c -o Rohan -pthread
+
+      - name: 🎯 Run Executables
+        run: |
+          chmod +x Rohan || true  # Ensure Rohan is executable
+          ./Rohan                 # Run the C program
+          python3 Rohan.py         # Run the Python script
