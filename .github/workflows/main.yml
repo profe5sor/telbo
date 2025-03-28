@@ -1,22 +1,21 @@
 name: Build and Run Rohan
 
-on: [push]  # Runs on every push to the repository
+on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu environment
+    runs-on: ubuntu-latest
 
     steps:
       - name: 📥 Checkout repository
-        uses: actions/checkout@v3  # Pulls your repository code
-      
+        uses: actions/checkout@v3
+
       - name: 🔧 Install dependencies
         run: |
           sudo apt update
           sudo apt install -y g++ python3 python3-pip
-          python3 -m ensurepip
-          python3 -m pip install --upgrade pip
-          python3 -m pip install telebot
+          pip3 install --upgrade pip
+          pip3 install telebot  # Install required Python packages
 
       - name: 🚀 Compile C Program
         run: |
